@@ -158,11 +158,11 @@ function OrderByRarity() {
     cardDiv.innerHTML = "";
 
     const rarityOrder = {
-        "Common": 1,
-        "Uncommon": 2,
+        "Common": 5,
+        "Uncommon": 4,
         "Rare": 3,
-        "Super Rare": 4,
-        "Legendary": 5
+        "Super Rare": 2,
+        "Legendary": 1
     };
 
     // Supongamos que tienes una lista de cards llamada `cards`
