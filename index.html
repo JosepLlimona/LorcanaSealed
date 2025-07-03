@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="setlist">
+        <select name="selectSet" id="selectSet">
+        </select>
+        <button onclick="GetCards()">Search</button>
+        <a>Order By:</a>
+        <button onclick="OrderByRarity()">Rarity</button>
+        <button onclick="OrderByCost()">Cost</button>
+    </div>
+    <div class="contenedor">
+        <div class="izquierda">
+            <h2>Cards</h2>
+            <div id="cardList"></div>
+        </div>
+        <div class="derecha">
+            <h2>Selected Cards</h2>
+            <a id="cardNumber">Cards: 0</a>
+            <a id="inkNumber">Inkeable: 0</a>
+            <a id="charNumber">Characters: 0</a>
+            <a id="actionNumber">Actions: 0</a>
+            <a id="itemNumber">Items: 0</a>
+            <a id="locNumber">Locations: 0</a>
+            <button onclick="Import()">Import</button>
+            <div id="selectedCards"></div>
+        </div>
+    </div>
+</body>
+
+<script src="cards.js"></script>
+<script src="scripts.js"></script>
