@@ -12,6 +12,15 @@ let actions = 0;
 let items = 0;
 let locations = 0;
 
+let one = 0;
+let two = 0;
+let three = 0;
+let four = 0;
+let five = 0;
+let six = 0;
+let seven = 0;
+let eight = 0;
+
 
 async function GetSets() {
     const url = "https://api.lorcana-api.com/sets/all?displayonly=set_num;name&orderby=set_num";
@@ -200,6 +209,14 @@ function PrintCardsLists() {
     actions = 0;
     items = 0;
     locations = 0;
+    one = 0;
+    two = 0;
+    three = 0;
+    four = 0;
+    five = 0;
+    six = 0;
+    seven = 0;
+    eight = 0;
 
     let cardDiv = document.getElementById("cardList");
     cardDiv.innerHTML = "";
@@ -241,6 +258,33 @@ function PrintCardsLists() {
                 break;
         }
 
+        switch (c.cost) {
+            case 1:
+                one++;
+                break;
+            case 2:
+                two++;
+                break;
+            case 3:
+                three++;
+                break;
+            case 4:
+                four++;
+                break;
+            case 5:
+                five++;
+                break;
+            case 6:
+                six++;
+                break;
+            case 7:
+                seven++;
+                break;
+            default:
+                eight++;
+                break;
+        }
+
         cardDiv.appendChild(image);
     });
 
@@ -251,12 +295,30 @@ function PrintCardsLists() {
     let itemNum = document.getElementById("itemNumber");
     let locNum = document.getElementById("locNumber");
 
-    cardNum.text = "Cards: " + selectCardList.length;
-    inkNum.text = "Inkeable: " + ink;
-    charNum.text = "Characters: " + characters;
-    actionNum.text = "Actions: " + actions;
-    itemNum.text = "Items: " + items;
-    locNum.text = "Locations: " + locations;
+    let oneNum = document.getElementById("one");
+    let twoNum = document.getElementById("two");
+    let threeNum = document.getElementById("three");
+    let fourNum = document.getElementById("four");
+    let fiveNum = document.getElementById("five");
+    let sixNum = document.getElementById("six");
+    let sevenNum = document.getElementById("seven");
+    let eightNum = document.getElementById("eight");
+
+    cardNum.text = selectCardList.length;
+    inkNum.text = ink;
+    charNum.text = characters;
+    actionNum.text = actions;
+    itemNum.text = items;
+    locNum.text = locations;
+
+    oneNum.text = one;
+    twoNum.text = two;
+    threeNum.text = three;
+    fourNum.text = four;
+    fiveNum.text = five;
+    sixNum.text = six;
+    sevenNum.text = seven;
+    eightNum.text = eight;
 
 }
 
