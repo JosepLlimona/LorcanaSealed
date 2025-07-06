@@ -8,10 +8,13 @@
     <div id="setlist">
         <select name="selectSet" id="selectSet">
         </select>
-        <button onclick="GetCards()">Search</button>
+        <button onclick="GetCards()">Open Pack</button>
         <a>Order By:</a>
         <button onclick="OrderByRarity()">Rarity</button>
         <button onclick="OrderByCost()">Cost</button>
+        </br>
+        <a>Card: </a>
+        <input id="cardSearch" oninput="SearchCard()"></textarea>
     </div>
     <div class="contenedor">
         <div class="izquierda">
@@ -50,9 +53,11 @@
                 <a id="seven">0</a>
                 <a style="font-weight: bold;">8+:</a>
                 <a id="eight">0</a>
-
             </div>
             <button onclick="Import()">Import</button>
+            <a>Order By:</a>
+            <button onclick="OrderByRaritySelected()">Rarity</button>
+            <button onclick="OrderByCostSelected()">Cost</button>
             <div id="selectedCards"></div>
         </div>
     </div>

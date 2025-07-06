@@ -23,7 +23,7 @@ let eight = 0;
 
 
 async function GetSets() {
-    const url = "https://api.lorcana-api.com/sets/all?displayonly=set_num;name&orderby=set_num";
+    const url = "https://api.lorcana-api.com/sets/all?displayonly=set_num;name;cards&orderby=set_num";
     try {
         const response = await fetch(url);
 
@@ -43,10 +43,12 @@ function CompleteSelect(sets) {
     let select = document.getElementById("selectSet");
 
     sets.forEach(e => {
-        let option = document.createElement("option");
-        option.value = e.Set_Num;
-        option.text = e.Name;
-        select.appendChild(option);
+        if (e.Cards > 200) {
+            let option = document.createElement("option");
+            option.value = e.Set_Num;
+            option.text = e.Name;
+            select.appendChild(option);
+        }
     });
 }
 
@@ -98,6 +100,7 @@ function CreateCards(cards) {
 }
 
 function OpenPack() {
+    DeleteDeck();
     pull = [];
     let cardDiv = document.getElementById("cardList");
     cardDiv.innerHTML = "";
@@ -146,12 +149,12 @@ function OpenPack() {
 
     }
     pull.forEach(c => {
-        CreateCardImage(c);
+        CreateCardImage(c, "cardList");
     })
 }
 
-function CreateCardImage(card) {
-    let cardDiv = document.getElementById("cardList");
+function CreateCardImage(card, div) {
+    let cardDiv = document.getElementById(div);
     let image = document.createElement("img");
     image.src = card.image;
     image.className = "card"
@@ -178,7 +181,29 @@ function OrderByRarity() {
     pull.sort((a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]);
 
     pull.forEach(c => {
-        CreateCardImage(c);
+        CreateCardImage(c, "cardList");
+    })
+}
+
+function OrderByRaritySelected() {
+    if (pull.length == 0)
+        return;
+    let cardDiv = document.getElementById("selectedCards");
+    cardDiv.innerHTML = "";
+
+    const rarityOrder = {
+        "Common": 5,
+        "Uncommon": 4,
+        "Rare": 3,
+        "Super Rare": 2,
+        "Legendary": 1
+    };
+
+    // Supongamos que tienes una lista de cards llamada `cards`
+    selectCardList.sort((a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]);
+
+    selectCardList.forEach(c => {
+        CreateCardImage(c, "selectedCards");
     })
 }
 
@@ -191,7 +216,20 @@ function OrderByCost() {
 
     pull.sort((a, b) => a.cost - b.cost);
     pull.forEach(c => {
-        CreateCardImage(c);
+        CreateCardImage(c, "cardList");
+    })
+}
+
+function OrderByCostSelected() {
+    if (pull.length == 0)
+        return;
+
+    let cardDiv = document.getElementById("selectedCards");
+    cardDiv.innerHTML = "";
+
+    selectCardList.sort((a, b) => a.cost - b.cost);
+    selectCardList.forEach(c => {
+        CreateCardImage(c, "selectedCards");
     })
 }
 
@@ -228,7 +266,7 @@ function PrintCardsLists() {
 
     console.log(pull.length);
     pull.forEach(c => {
-        CreateCardImage(c);
+        CreateCardImage(c, "cardList");
     })
     selectCardList.forEach(c => {
         let cardDiv = document.getElementById("selectedCards");
@@ -357,6 +395,61 @@ function Import() {
     navigator.clipboard.writeText(importString)
     alert(importString + "Copy to clipboard");
 
+}
+
+function DeleteDeck() {
+    selectCardList = [];
+    let selectedCardDiv = document.getElementById("selectedCards");
+    selectedCardDiv.innerHTML = "";
+
+    let cardNum = document.getElementById("cardNumber");
+    let inkNum = document.getElementById("inkNumber");
+    let charNum = document.getElementById("charNumber");
+    let actionNum = document.getElementById("actionNumber");
+    let itemNum = document.getElementById("itemNumber");
+    let locNum = document.getElementById("locNumber");
+
+    let oneNum = document.getElementById("one");
+    let twoNum = document.getElementById("two");
+    let threeNum = document.getElementById("three");
+    let fourNum = document.getElementById("four");
+    let fiveNum = document.getElementById("five");
+    let sixNum = document.getElementById("six");
+    let sevenNum = document.getElementById("seven");
+    let eightNum = document.getElementById("eight");
+
+    cardNum.text = "0";
+    inkNum.text = "0";
+    charNum.text = "0";
+    actionNum.text = "0";
+    itemNum.text = "0";
+    locNum.text = "0";
+
+    oneNum.text = "0";
+    twoNum.text = "0";
+    threeNum.text = "0";
+    fourNum.text = "0";
+    fiveNum.text = "0";
+    sixNum.text = "0";
+    sevenNum.text = "0";
+    eightNum.text = "0";
+}
+
+function SearchCard() {
+    let searcher = document.getElementById("cardSearch");
+
+    if (pull.length == 0)
+        return
+
+    let searchArray = pull.filter(c => c.name.toLowerCase().includes(searcher.value.toLowerCase()));
+    console.log(searchArray.length);
+
+    let cardDiv = document.getElementById("cardList");
+    cardDiv.innerHTML = "";
+
+    searchArray.forEach(c => {
+        CreateCardImage(c, "cardList");
+    })
 }
 
 GetSets();
